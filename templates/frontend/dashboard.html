@@ -1,0 +1,2131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CollegeCollab</title>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* =========================
+           LOGIN PAGE
+        ========================= */
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background:
+                radial-gradient(circle at top left, #dbeafe, transparent 35%),
+                radial-gradient(circle at bottom right, #e0e7ff, transparent 35%),
+                #f5f7fb;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 45px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 700;
+            color: #6366f1;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eef2ff;
+            border-radius: 20px;
+            font-size: 32px;
+        }
+
+        .login-card h1 {
+            margin-top: 22px;
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .login-card > p {
+            margin-top: 8px;
+            color: #6b7280;
+        }
+
+        #loginForm {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        #loginForm label {
+            display: block;
+            margin: 15px 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        #loginForm input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        #loginForm input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        #loginForm button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #6366f1;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #loginForm button:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+
+.login-card small,
+        .signup-card small {
+            display: block;
+            margin-top: 20px;
+            color: #9ca3af;
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 45px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+            text-align: center;
+        }
+
+        #signupForm {
+            text-align: left;
+            margin-top: 25px;
+        }
+
+        #signupForm label {
+            display: block;
+            margin: 14px 0 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        #signupForm input,
+        #signupCollege {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+            color: #1f2937;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        #signupForm input:focus,
+        #signupCollege:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .role-selector {
+            display: flex;
+            background: #f3f4f6;
+            border-radius: 14px;
+            padding: 4px;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 11px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #6b7280;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .role-btn.active {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-btn {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #6366f1;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-switch-text {
+            margin-top: 18px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .auth-switch-text a {
+            color: #6366f1;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .auth-switch-text a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-alert {
+            margin-top: 15px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .auth-alert-danger {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .auth-alert-success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        .dashboard {
+            min-height: 100vh;
+            display: flex;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            padding: 30px 20px;
+            background: #111827;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .platform {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .sidebar nav {
+            margin-top: 40px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: #6366f1;
+            color: white;
+        }
+
+        #logoutbtn {
+            margin-top: auto;
+            padding: 13px;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            background: transparent;
+            color: #d1d5db;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #logout:hover {
+            background: #1f2937;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 0 40px;
+        }
+
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            min-height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .topbar h2 {
+            font-size: 21px;
+            color: #111827;
+        }
+
+        .topbar p {
+            margin-top: 5px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+
+        /* =========================
+           WELCOME
+        ========================= */
+
+        .welcome {
+            margin-top: 35px;
+            padding: 55px;
+            border-radius: 25px;
+            color: white;
+            background:
+                linear-gradient(120deg, #4f46e5, #7c3aed);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.18);
+        }
+
+        .welcome span,
+        .section-heading span {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .welcome h1 {
+            margin-top: 14px;
+            font-size: 42px;
+            line-height: 1.15;
+        }
+
+        .welcome p {
+            max-width: 650px;
+            margin-top: 18px;
+            color: #e0e7ff;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .explore {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 20px;
+            border-radius: 10px;
+            background: white;
+            color: #4f46e5;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .explore:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 23px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-card > span {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 14px;
+            background: #eef2ff;
+            font-size: 22px;
+        }
+
+        .stat-card h2 {
+            font-size: 25px;
+            color: #111827;
+        }
+
+        .stat-card p {
+            margin-top: 3px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        #events,
+        #colleges,
+        #notifications,
+        #profile {
+            margin-top: 65px;
+            scroll-margin-top: 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-heading span {
+            color: #6366f1;
+        }
+
+        .section-heading h2 {
+            margin-top: 6px;
+            font-size: 28px;
+            color: #111827;
+        }
+
+
+        /* =========================
+           FILTERS
+        ========================= */
+
+        .filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            background: white;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            border-color: #6366f1;
+        }
+
+
+        /* =========================
+           CREATE EVENT (ORGANIZER)
+        ========================= */
+
+        .create-event-section {
+            margin-top: 45px;
+            scroll-margin-top: 25px;
+        }
+
+        .create-event-card {
+            background: white;
+            border: 1px solid #e0e7ff;
+            border-radius: 24px;
+            padding: 35px 40px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.05);
+            transition: 0.2s;
+        }
+
+        .create-event-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 25px;
+        }
+
+        .create-event-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: #eef2ff;
+            color: #6366f1;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .create-event-header h3 {
+            font-size: 20px;
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .create-event-header p {
+            font-size: 13.5px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 24px;
+        }
+
+        .col-span-2 {
+            grid-column: span 2;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-field label i {
+            color: #6366f1;
+            font-size: 15px;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            outline: none;
+            font-size: 14px;
+            background: #ffffff;
+            color: #1e293b;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-field textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+            background: #ffffff;
+        }
+
+        .time-subgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-footer {
+            margin-top: 25px;
+            padding-top: 22px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-create-event {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+            font-family: inherit;
+        }
+
+        .btn-create-event:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+        }
+
+        /* =========================
+           FILTERS ENHANCEMENT
+        ========================= */
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 12px 18px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            background: white;
+            outline: none;
+            font-size: 14px;
+            color: #1e293b;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .filters input {
+            min-width: 250px;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        /* =========================
+           EVENT GRID & CARDS
+        ========================= */
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 36px rgba(99, 102, 241, 0.1);
+            border-color: #c7d2fe;
+        }
+
+        .event-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .event-status-badge {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 4px 11px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .status-upcoming {
+            background: #eef2ff;
+            color: #4f46e5;
+            border: 1px solid #c7d2fe;
+        }
+
+        .status-ongoing {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+
+        .status-completed {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .status-cancelled {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .event-college-pill {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6366f1;
+            background: #f5f3ff;
+            padding: 4px 11px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            max-width: 190px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .event-card-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
+
+        .event-card-desc {
+            color: #64748b;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .event-meta-grid {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 18px;
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .event-meta-item i {
+            color: #6366f1;
+            font-size: 15px;
+            margin-top: 2px;
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .meta-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1px;
+        }
+
+        .meta-value {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-event-action {
+            flex: 1;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-event-register {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-event-register:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+        }
+
+        .btn-event-cancel {
+            background: #fff;
+            color: #ef4444;
+            border: 1.5px solid #fca5a5;
+        }
+
+        .btn-event-cancel:hover {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .btn-event-edit {
+            background: #f5f3ff;
+            color: #4f46e5;
+            border: 1.5px solid #ddd6fe;
+        }
+
+        .btn-event-edit:hover {
+            background: #ede9fe;
+            border-color: #c4b5fd;
+        }
+
+        .btn-event-delete {
+            background: #fff;
+            color: #ef4444;
+            border: 1.5px solid #fecaca;
+        }
+
+        .btn-event-delete:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+
+        .badge-role-other {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            background: #f8fafc;
+            color: #94a3b8;
+            font-size: 12.5px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .events-empty-state {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 20px;
+            border: 2px dashed #cbd5e1;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .events-empty-state i {
+            font-size: 44px;
+            color: #a5b4fc;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .events-empty-state h4 {
+            font-size: 18px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .events-empty-state p {
+            color: #64748b;
+            font-size: 13.5px;
+            margin-top: 5px;
+        }
+
+
+        /* =========================
+           COLLEGES
+        ========================= */
+
+        .college-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .college-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .college-logo {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: #eef2ff;
+            font-size: 25px;
+        }
+
+        .college-card h3 {
+            margin-top: 18px;
+            font-size: 17px;
+        }
+
+        .college-card p {
+            margin-top: 6px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .connect {
+            margin-top: 18px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c7d2fe;
+            background: #eef2ff;
+            color: #4f46e5;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           NOTIFICATIONS
+        ========================= */
+
+        .notification {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+        }
+
+        .notification > div:first-child {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef2ff;
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
+        .notification strong {
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .notification p {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .notification small {
+            display: block;
+            margin-top: 8px;
+            color: #9ca3af;
+        }
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: #eef2ff;
+            font-size: 30px;
+        }
+
+        .profile-card h3 {
+            font-size: 20px;
+        }
+
+        .profile-card p {
+            margin-top: 7px;
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 60px 20px 35px;
+            margin-top: 70px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        footer h3 {
+            color: #111827;
+        }
+
+        footer p {
+            margin-top: 7px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        footer small {
+            display: block;
+            margin-top: 15px;
+            color: #9ca3af;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .event-grid,
+            .college-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 0 25px;
+            }
+
+            .welcome {
+                padding: 35px;
+            }
+
+            .welcome h1 {
+                font-size: 34px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .filters {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .filters input,
+            .filters select {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .col-span-2 {
+                grid-column: span 1;
+            }
+
+            .time-subgrid {
+                grid-template-columns: 1fr;
+            }
+
+            .create-event-card {
+                padding: 25px 20px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .login-card,
+            .signup-card {
+                padding: 30px 20px;
+            }
+
+            .form-row-2 {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .dashboard {
+                display: block;
+            }
+
+            .sidebar nav {
+                margin-top: 20px;
+            }
+
+            .sidebar nav a {
+                display: inline-flex;
+                margin-right: 5px;
+            }
+
+            #logout {
+                margin-top: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 0 18px;
+            }
+
+            .topbar {
+                gap: 15px;
+            }
+
+            .topbar h2 {
+                font-size: 17px;
+            }
+
+            .stats,
+            .event-grid,
+            .college-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 30px 22px;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .profile-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <!-- LOGIN CARD -->
+    <div id="loginCard" class="login-card">
+
+        <div class="logo">
+            COLLEGECOLLAB
+        </div>
+
+        <div class="logo-icon">
+            🎓
+        </div>
+
+        <h1>Welcome Back 👋</h1>
+
+        <p>
+            Connect • Collaborate • Participate
+        </p>
+
+
+        <form id="loginForm">
+
+            <label for="collegeId">
+                College ID / Username
+            </label>
+
+            <input
+                type="text"
+                id="collegeId"
+                placeholder="Enter username"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                required
+            >
+
+            <div id="loginAlert" class="auth-alert hidden"></div>
+
+            <button type="submit">
+                Login →
+            </button>
+
+        </form>
+
+        <p class="auth-switch-text">
+            Don't have an account? <a href="#" id="showSignupLink">Sign up</a>
+        </p>
+
+        <small>
+            Access your college event community
+        </small>
+
+    </div>
+
+    <!-- SIGNUP CARD -->
+    <div id="signupCard" class="signup-card hidden">
+
+        <div class="logo">
+            COLLEGECOLLAB
+        </div>
+
+        <div class="logo-icon">
+            ✨
+        </div>
+
+        <h1>Create an Account 🚀</h1>
+
+        <p>
+            Connect • Collaborate • Participate
+        </p>
+
+        <form id="signupForm">
+
+            <!-- Role Selector -->
+            <label>I am registering as</label>
+            <div class="role-selector">
+                <button type="button" class="role-btn active" id="btnRoleStudent">
+                    🎓 Student
+                </button>
+                <button type="button" class="role-btn" id="btnRoleOrganizer">
+                    🏢 Organizer
+                </button>
+            </div>
+            <input type="hidden" id="signupRole" value="student">
+
+            <!-- Username -->
+            <label for="signupUsername">Username</label>
+            <input
+                type="text"
+                id="signupUsername"
+                placeholder="Choose a username"
+                required
+                autocomplete="username"
+            >
+
+            <!-- Email -->
+            <label for="signupEmail">Email Address</label>
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="name@example.com"
+                required
+                autocomplete="email"
+            >
+
+            <!-- Password -->
+            <label for="signupPassword">Password</label>
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Enter password (min 8 characters)"
+                required
+                autocomplete="new-password"
+            >
+
+            <!-- College Dropdown -->
+            <label for="signupCollege">College</label>
+            <select id="signupCollege" required>
+                <option value="" disabled selected>Select your college</option>
+            </select>
+
+            <!-- Student Fields -->
+            <div id="studentFields">
+                <label for="signupMobile">Mobile Number</label>
+                <input
+                    type="tel"
+                    id="signupMobile"
+                    placeholder="10-digit mobile number"
+                    maxlength="15"
+                >
+
+                <div class="form-row-2">
+                    <div>
+                        <label for="signupCourse">Course / Branch</label>
+                        <input
+                            type="text"
+                            id="signupCourse"
+                            placeholder="e.g. B.Tech CS"
+                        >
+                    </div>
+                    <div>
+                        <label for="signupYear">Academic Year</label>
+                        <input
+                            type="number"
+                            id="signupYear"
+                            placeholder="e.g. 2"
+                            min="1"
+                            max="6"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organizer Fields -->
+            <div id="organizerFields" class="hidden">
+                <label for="signupDesignation">Designation</label>
+                <input
+                    type="text"
+                    id="signupDesignation"
+                    placeholder="e.g. Club Lead / Faculty Coordinator"
+                >
+            </div>
+
+            <div id="signupAlert" class="auth-alert hidden"></div>
+
+            <button type="submit" id="signupSubmitBtn" class="auth-btn">
+                Register Account →
+            </button>
+
+        </form>
+
+        <p class="auth-switch-text">
+            Already have an account? <a href="#" id="showLoginLink">Log in</a>
+        </p>
+
+        <small>
+            Access your college event community
+        </small>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<div id="dashboard" class="dashboard hidden">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            CollegeCollab
+        </div>
+
+        <p class="platform">
+            College Event Collaboration Platform
+        </p>
+
+
+        <nav>
+
+            <a class="active" href="#home">
+                🏠 Dashboard
+            </a>
+
+            <a href="#events">
+                📅 Events
+            </a>
+
+            <a href="#colleges">
+                🏫 Colleges
+            </a>
+
+            <a href="#notifications">
+                🔔 Notifications
+            </a>
+
+            <a href="#profile">
+                👤 Profile
+            </a>
+
+        </nav>
+
+
+        <button id="logoutbtn">
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- ================= TOPBAR ================= -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h2>
+                    CollegeCollab
+                </h2>
+
+                <p id="welcomeText">
+                    Welcome to your college community
+                </p>
+
+            </div>
+
+
+            <div class="user">
+
+                🎓
+
+                <span id="userName">
+                    College
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section id="home" class="welcome">
+
+            <div>
+
+                <span>
+                    COLLEGE EVENT COLLABORATION PLATFORM
+                </span>
+
+                <h1>
+                    Discover what's
+                    <br>
+                    happening on campus.
+                </h1>
+
+                <p>
+                    Explore events from your college and
+                    other colleges. Discover hackathons,
+                    cultural events, gaming competitions,
+                    sports, faculty events and much more.
+                </p>
+
+                <a href="#events" class="explore">
+                    Explore Events →
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <span>📅</span>
+
+                <div>
+
+                    <h2 id="eventCount">
+                        0
+                    </h2>
+
+                    <p>
+                        Upcoming Events
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🏫</span>
+
+                <div>
+
+                    <h2 id="collegeCount">
+                        0
+                    </h2>
+
+                    <p>
+                        Colleges
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>👥</span>
+
+                <div>
+
+                    <h2 id="studentCount">
+                        —
+                    </h2>
+
+                    <p>
+                        Students
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🎯</span>
+
+                <div>
+
+                    <h2 id="activeEventCount">
+                        0
+                    </h2>
+
+                    <p>
+                        Active Events
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+<!-- ===============================
+           CREATE EVENT
+================================ -->
+
+<section id="createEvent" class="hidden create-event-section">
+
+    <div class="section-heading">
+        <div>
+            <span>ORGANIZER DASHBOARD</span>
+            <h2>Create New Event</h2>
+        </div>
+    </div>
+
+    <div class="create-event-card">
+
+        <div class="create-event-header">
+            <div class="create-event-icon">
+                <i class="bi bi-calendar-plus"></i>
+            </div>
+            <div>
+                <h3>Publish an Event</h3>
+                <p>Fill out the details below to host and invite students to your campus event.</p>
+            </div>
+        </div>
+
+        <form id="createEventForm">
+
+            <div class="form-grid">
+
+                <!-- Full Width: Title -->
+                <div class="form-field col-span-2">
+                    <label for="eventTitle">
+                        <i class="bi bi-type"></i> Event Title
+                    </label>
+                    <input
+                        type="text"
+                        id="eventTitle"
+                        placeholder="e.g. Inter-College Hackathon 2026"
+                        required
+                    >
+                </div>
+
+                <!-- Full Width: Description -->
+                <div class="form-field col-span-2">
+                    <label for="eventDescription">
+                        <i class="bi bi-text-paragraph"></i> Event Description
+                    </label>
+                    <textarea
+                        id="eventDescription"
+                        placeholder="Describe the schedule, rules, eligibility, prizes, and highlights..."
+                        rows="4"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Venue -->
+                <div class="form-field">
+                    <label for="eventVenue">
+                        <i class="bi bi-geo-alt"></i> Venue / Location
+                    </label>
+                    <input
+                        type="text"
+                        id="eventVenue"
+                        placeholder="e.g. Main Auditorium / Lab 304"
+                        required
+                    >
+                </div>
+
+                <!-- Capacity -->
+                <div class="form-field">
+                    <label for="eventCapacity">
+                        <i class="bi bi-people"></i> Maximum Capacity
+                    </label>
+                    <input
+                        type="number"
+                        id="eventCapacity"
+                        placeholder="e.g. 150"
+                        min="1"
+                        required
+                    >
+                </div>
+
+                <!-- Date -->
+                <div class="form-field">
+                    <label for="eventDate">
+                        <i class="bi bi-calendar-event"></i> Event Date
+                    </label>
+                    <input
+                        type="date"
+                        id="eventDate"
+                        required
+                    >
+                </div>
+
+                <!-- Time Grid -->
+                <div class="form-field">
+                    <div class="time-subgrid">
+                        <div>
+                            <label for="eventStartTime">
+                                <i class="bi bi-clock"></i> Start Time
+                            </label>
+                            <input
+                                type="time"
+                                id="eventStartTime"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="eventEndTime">
+                                <i class="bi bi-clock-history"></i> End Time
+                            </label>
+                            <input
+                                type="time"
+                                id="eventEndTime"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" id="btnCreateEventSubmit" class="btn-create-event">
+                    <i class="bi bi-plus-circle-fill"></i> Create & Publish Event
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+        <!-- ================= EVENTS ================= -->
+
+        <section id="events">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        DISCOVER
+                    </span>
+
+                    <h2>
+                        Upcoming Events
+                    </h2>
+
+                </div>
+
+
+                <div class="filters">
+
+                    <input
+                        id="search"
+                        type="text"
+                        placeholder="🔎 Search event"
+                    >
+
+
+                    <select id="category">
+
+                        <option value="All">
+                            All Events
+                        </option>
+
+                        <option value="Hackathon">
+                            Hackathon
+                        </option>
+
+                        <option value="Gaming">
+                            Gaming
+                        </option>
+
+                        <option value="Faculty">
+                            Faculty Events
+                        </option>
+
+                        <option value="Sports">
+                            Sports
+                        </option>
+
+                        <option value="Academic">
+                            Academic
+                        </option>
+
+                        <option value="Creative">
+                            Creative Events
+                        </option>
+
+                        <option value="Entrepreneurship">
+                            Entrepreneurship
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- JS API se events yahan aayenge -->
+
+            <div
+                id="eventContainer"
+                class="event-grid">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= OTHER COLLEGES ================= -->
+
+        <section id="colleges">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        NETWORK
+                    </span>
+
+                    <h2>
+                        Other Colleges
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- JS API se colleges yahan aayenge -->
+
+            <div
+                id="collegeContainer"
+                class="college-grid">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= NOTIFICATIONS ================= -->
+
+        <section id="notifications">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        UPDATES
+                    </span>
+
+                    <h2>
+                        Notifications
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="notificationContainer">
+
+                <div class="notification">
+
+                    <div>
+                        📧
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            CollegeCollab Notifications
+                        </strong>
+
+                        <p>
+                            Event updates and registration
+                            confirmations will appear here.
+                        </p>
+
+                        <small>
+                            Ready
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <section id="profile">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        ACCOUNT
+                    </span>
+
+                    <h2>
+                        College Profile
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-icon">
+                    🎓
+                </div>
+
+
+                <div>
+
+                    <h3 id="profileCollege">
+                        College
+                    </h3>
+
+                    <p id="profileRole">
+                        Registered College
+                    </p>
+
+                    <p>
+                        Discover and participate
+                        in events from different colleges.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+
+            <h3>
+                CollegeCollab
+            </h3>
+
+            <p>
+                Connect • Collaborate • Participate
+            </p>
+
+            <small>
+                © 2026 CollegeCollab — College Event Collaboration Platform
+            </small>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- JavaScript -->
+
+<script src="{% static 'event.js' %}"></script>
+
+</body>
+
+</html>

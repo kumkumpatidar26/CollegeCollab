@@ -1,0 +1,9 @@
+Hello {{ student_name }},
+
+Your registration for "{{ event_title }}" is confirmed.
+
+Date: {{ event_date|date:"F j, Y" }}
+Time: {{ event_start_time|time:"g:i A" }} - {{ event_end_time|time:"g:i A" }}
+Venue: {{ event_venue }}
+
+Thank you for registering with CollegeCollab.

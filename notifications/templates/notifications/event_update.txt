@@ -1,0 +1,9 @@
+Hello,
+
+The organizer has updated the event "{{ event_title }}". The current details are:
+
+Date: {{ event_date|date:"F j, Y" }}
+Time: {{ event_start_time|time:"g:i A" }} - {{ event_end_time|time:"g:i A" }}
+Venue: {{ event_venue }}
+
+Please check CollegeCollab for the latest event information.
