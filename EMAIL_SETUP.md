@@ -1,8 +1,6 @@
 # Gmail email setup
 
-CollegeCollab uses Django's SMTP backend with Gmail. The project reads its
-secret key, PostgreSQL credentials, and Gmail credentials from environment
-variables; it does not load a `.env` file.
+CollegeCollab uses Django's SMTP backend with Gmail. The project reads its secret key, PostgreSQL credentials, and Gmail credentials from environment variables. If a `.env` file exists in the project root, the settings module loads its values into the environment. Keep the `.env` file out of source control and never commit real credentials.
 
 ## Configure PowerShell
 
